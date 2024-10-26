@@ -7,6 +7,7 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import "./style/login.style.css";
 import { loginWithEmail, loginWithGoogle } from "../../features/user/userSlice";
 import { clearErrors } from "../../features/user/userSlice";
+
 const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
 const Login = () => {
@@ -15,24 +16,43 @@ const Login = () => {
   const { user, loginError } = useSelector((state) => state.user);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false); // Log in 버튼 disable state
 
   useEffect(() => {
     if (loginError) {
+      setIsSubmitting(false); // 로그인 실패시 버튼 다시 active
       dispatch(clearErrors());
     }
   }, [navigate]);
-  const handleLoginWithEmail = (event) => {
+
+  // const handleLoginWithEmail = (event) => {
+  //   event.preventDefault();
+  //   setIsSubmitting(true); // form이 submit될시 login버튼 disable됨
+  //   dispatch(loginWithEmail({ email, password }));
+  // };
+
+  const handleLoginWithEmail = async (event) => {
     event.preventDefault();
-    dispatch(loginWithEmail({ email, password }));
+    setIsSubmitting(true); // Disable button when submitting
+    try {
+      await dispatch(loginWithEmail({ email, password })).unwrap();
+    } catch (error) {
+      console.error("Login failed:", error);
+    } finally {
+      setIsSubmitting(false); // Re-enable button after login attempt
+    }
   };
 
   const handleGoogleLogin = async (googleData) => {
     //구글 로그인 하기
   };
 
+  // 로그인해서 유저정보가 있는경우 로그인페이지를 보여주지않도록해줌
   if (user) {
     navigate("/");
+    return null;
   }
+
   return (
     <>
       <Container className="login-area">
@@ -62,16 +82,16 @@ const Login = () => {
             />
           </Form.Group>
           <div className="display-space-between login-button-area">
-            <Button variant="danger" type="submit">
-              Login
+            <Button variant="danger" type="submit" disabled={isSubmitting}>
+              {isSubmitting ? "Logging in..." : "Login"}
             </Button>
             <div>
-              아직 계정이 없으세요?<Link to="/register">회원가입 하기</Link>{" "}
+              Don't have an account yet? <Link to="/register">Sign up</Link>
             </div>
           </div>
 
           <div className="text-align-center mt-2">
-            <p>-외부 계정으로 로그인하기-</p>
+            <p>- Log in with an external account -</p>
             <div className="display-center">
               <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
                 <GoogleLogin
