@@ -10,6 +10,7 @@ export const loginWithEmail = createAsyncThunk(
     try {
       const response = await api.post("/auth/login", { email, password });
       // 성공
+      // 토큰저장 1. local storage 2. session storage
       sessionStorage.setItem("token", response.data.token);
       // Login page 성공시 navigate처리
       return response.data;
@@ -25,7 +26,27 @@ export const loginWithGoogle = createAsyncThunk(
   async (token, { rejectWithValue }) => {}
 );
 
-export const logout = () => (dispatch) => {};
+export const logout = createAsyncThunk(
+  "user/logout",
+  async (_, { dispatch }) => {
+    try {
+      // 로컬 스토리지의 토큰 제거
+      sessionStorage.removeItem("token");
+
+      dispatch(
+        showToastMessage({
+          message: "로그아웃 되었습니다.",
+          status: "success",
+        })
+      );
+
+      return null;
+    } catch (error) {
+      console.error("Logout error:", error);
+      throw error;
+    }
+  }
+);
 
 export const registerUser = createAsyncThunk(
   "user/registerUser",
@@ -63,7 +84,15 @@ export const registerUser = createAsyncThunk(
 
 export const loginWithToken = createAsyncThunk(
   "user/loginWithToken",
-  async (_, { rejectWithValue }) => {}
+  async (_, { rejectWithValue }) => {
+    // api.js에서 이미 토큰값을 session storage에 저장하도록 설정해둠, 그래서 토큰값을 따로 가져오지않아도됨
+    try {
+      const response = await api.get("/user/me");
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.error);
+    }
+  }
 );
 
 const userSlice = createSlice({
@@ -83,6 +112,7 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      // Register reducer
       .addCase(registerUser.pending, (state) => {
         state.loading = true;
       })
@@ -93,6 +123,7 @@ const userSlice = createSlice({
       .addCase(registerUser.rejected, (state, action) => {
         state.registrationError = action.payload;
       })
+      // Login reducer
       .addCase(loginWithEmail.pending, (state) => {
         state.loading = true;
       })
@@ -104,13 +135,27 @@ const userSlice = createSlice({
       .addCase(loginWithEmail.rejected, (state, action) => {
         state.loading = false;
         state.loginError = action.payload;
+      })
+      // Token Login reducer
+      .addCase(loginWithToken.fulfilled, (state, action) => {
+        state.user = action.payload.user; // Store user data from token
+      })
+      // 로그인했는지 안했는지를 로딩스피너로 보여줄필요가없기에 삭제 .addCase(loginWithToken.pending)
+      // 로그인한 유저가 없다는걸 보여줄필요가 없기에 삭제  .addCase(loginWithToken.rejected)
+      // Logout 리듀서
+      .addCase(logout.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(logout.fulfilled, (state) => {
+        state.user = null;
+        state.loading = false;
+        state.loginError = null;
+        state.registrationError = null;
+        state.success = false;
+      })
+      .addCase(logout.rejected, (state) => {
+        state.loading = false;
       });
-    // .addCase(loginWithToken.fulfilled, (state, action) => {
-    //   state.user = action.payload.data; // Store user data from token
-    // })
-    // .addCase(loginWithToken.rejected, (state, action) => {
-    //   state.loginError = action.payload; // Handle token login errors
-    // })
   },
 });
 export const { clearErrors } = userSlice.actions;

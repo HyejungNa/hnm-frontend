@@ -25,6 +25,12 @@ const Login = () => {
     }
   }, [navigate]);
 
+  // useEffect(() => {
+  //   if (loginError) {
+  //     dispatch(clearErrors());
+  //   }
+  // }, [dispatch]);
+
   // const handleLoginWithEmail = (event) => {
   //   event.preventDefault();
   //   setIsSubmitting(true); // form이 submit될시 login버튼 disable됨
@@ -52,6 +58,12 @@ const Login = () => {
     navigate("/");
     return null;
   }
+
+  // useEffect(() => {
+  //   if (user) {
+  //     navigate("/");
+  //   }
+  // }, [user, navigate]);
 
   return (
     <>

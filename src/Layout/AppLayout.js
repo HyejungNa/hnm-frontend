@@ -13,14 +13,32 @@ const AppLayout = ({ children }) => {
   const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state.user);
+
+  // useEffect(() => {
+  //   dispatch(loginWithToken()); // 웹페이지 처음들어올때 로그인이되있는지 바로 확인하기위해 실행
+  // }, [dispatch]);
+
+  // useEffect(() => {
+  //   // Check for token in sessionStorage and dispatch loginWithToken if present
+  //   if (sessionStorage.getItem("token")) {
+  //     dispatch(loginWithToken());
+  //   }
+  // }, [dispatch]);
+
   useEffect(() => {
-    dispatch(loginWithToken());
-  }, []);
+    // 세션스토리지에 토큰이 있을 때만 실행
+    const token = sessionStorage.getItem("token");
+    if (token) {
+      dispatch(loginWithToken());
+    }
+  }, [dispatch]);
+
   useEffect(() => {
     if (user) {
       dispatch(getCartQty());
     }
-  }, [user]);
+  }, [user, dispatch]);
+
   return (
     <div>
       <ToastMessage />
