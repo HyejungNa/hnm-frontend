@@ -5,7 +5,15 @@ import { showToastMessage } from "../common/uiSlice";
 // 비동기 액션 생성
 export const getProductList = createAsyncThunk(
   "products/getProductList",
-  async (query, { rejectWithValue }) => {}
+  async (query, { rejectWithValue }) => {
+    try {
+      const response = await api.get("/product");
+      if (response.status !== 200) throw new Error(response.error);
+      return response.data.data;
+    } catch (error) {
+      rejectWithValue(error.error);
+    }
+  }
 );
 
 export const getProductDetail = createAsyncThunk(
@@ -66,19 +74,34 @@ const productSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(createProduct.pending, (state, action) => {
-      state.loading = true;
-    });
-    builder.addCase(createProduct.fulfilled, (state, action) => {
-      state.loading = false;
-      state.error = "";
-      state.success = true; // 상품 생성을 성공시 다이얼로그를 닫고, 실패시 실패메세지를 다이어로그에 보여주도록
-    });
-    builder.addCase(createProduct.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-      state.success = false;
-    });
+    builder
+      .addCase(createProduct.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(createProduct.fulfilled, (state, action) => {
+        //.addCase앞에 builder삭제해도 동작
+        state.loading = false;
+        state.error = "";
+        state.success = true; // 상품 생성을 성공시 다이얼로그를 닫고, 실패시 실패메세지를 다이어로그에 보여주도록
+      })
+      .addCase(createProduct.rejected, (state, action) => {
+        //.addCase앞에 builder삭제해도 동작 (; 지워서 한개로 연결됨)
+        state.loading = false;
+        state.error = action.payload;
+        state.success = false;
+      })
+      .addCase(getProductList.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(getProductList.fulfilled, (state, action) => {
+        state.loading = false;
+        state.productList = action.payload;
+        state.error = "";
+      })
+      .addCase(getProductList.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
   },
 });
 
