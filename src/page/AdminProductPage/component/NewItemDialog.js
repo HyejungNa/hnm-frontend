@@ -33,6 +33,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
   const [stockError, setStockError] = useState(false);
   console.log("stock", stock);
 
+  // 제품 생성이 성공되었을때 다이얼로그를 종료해주고, 에러 날시 다이얼로그는 계속 켜져있음
   useEffect(() => {
     if (success) setShowDialog(false);
   }, [success]);
@@ -77,6 +78,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
     // [['M',2]] 에서 {M:2}로
     if (mode === "new") {
       //새 상품 만들기
+      dispatch(createProduct({ ...formData, stock: totalStock }));
     } else {
       // 상품 수정하기
     }
