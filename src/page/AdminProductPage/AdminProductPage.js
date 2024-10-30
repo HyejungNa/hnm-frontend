@@ -84,7 +84,7 @@ const AdminProductPage = () => {
           <SearchBox
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
-            placeholder="제품 이름으로 검색"
+            placeholder="Search by product name"
             field="name"
           />
         </div>
