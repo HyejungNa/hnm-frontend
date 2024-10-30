@@ -23,13 +23,7 @@ const Login = () => {
       setIsSubmitting(false); // 로그인 실패시 버튼 다시 active
       dispatch(clearErrors());
     }
-  }, [navigate]);
-
-  // useEffect(() => {
-  //   if (loginError) {
-  //     dispatch(clearErrors());
-  //   }
-  // }, [dispatch]);
+  }, [dispatch]);
 
   // const handleLoginWithEmail = (event) => {
   //   event.preventDefault();
@@ -54,16 +48,16 @@ const Login = () => {
   };
 
   // 로그인해서 유저정보가 있는경우 로그인페이지를 보여주지않도록해줌
-  if (user) {
-    navigate("/");
-    return null;
-  }
+  // if (user) {
+  //   navigate("/");
+  //   return null;
+  // }
 
-  // useEffect(() => {
-  //   if (user) {
-  //     navigate("/");
-  //   }
-  // }, [user, navigate]);
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [user, navigate]);
 
   return (
     <>
