@@ -10,11 +10,12 @@ import {
   getProductList,
   deleteProduct,
   setSelectedProduct,
+  updateStatus,
 } from "../../features/product/productSlice";
 
 const AdminProductPage = () => {
   const navigate = useNavigate();
-  const [query] = useSearchParams();
+  const [query] = useSearchParams(); // url파라미터 읽어오기
   const dispatch = useDispatch();
   const { productList, totalPageNum } = useSelector((state) => state.product);
   const [showDialog, setShowDialog] = useState(false);
@@ -36,24 +37,20 @@ const AdminProductPage = () => {
     "",
   ];
 
-  //상품리스트 가져오기 (url쿼리 맞춰서) - 페이지 들어오자마자 보여줌(useEffect)
+  //상품리스트 가져오기 (1.url쿼리맞춰서, 2.상품추가시 자동 업데이트) - 페이지 들어오자마자 보여줌(useEffect)
   useEffect(() => {
     dispatch(getProductList({ ...searchQuery }));
-  }, [query]);
-
-  // useEffect(() => {
-  //   dispatch(getProductList());
-  // }, []);
+  }, [showDialog, query]);
 
   useEffect(() => {
     //검색어나 페이지가 바뀌면 url바꿔주기 (검색어또는 페이지가 바뀜 => url 바꿔줌=> url쿼리 읽어옴=> 이 쿼리값 맞춰서  상품리스트 가져오기)
     if (searchQuery.name === "") {
       delete searchQuery.name;
     }
-    console.log("qqq", searchQuery);
+    // console.log("qqq", searchQuery);
     const params = new URLSearchParams(searchQuery);
     const query = params.toString();
-    console.log("qqq", query);
+    // console.log("qqq", query);
     navigate("?" + query);
   }, [searchQuery]);
 
@@ -75,6 +72,7 @@ const AdminProductPage = () => {
 
   const handlePageClick = ({ selected }) => {
     //  쿼리에 페이지값 바꿔주기
+    setSearchQuery({ ...searchQuery, page: selected + 1 });
   };
 
   return (
@@ -102,8 +100,8 @@ const AdminProductPage = () => {
           nextLabel="next >"
           onPageChange={handlePageClick}
           pageRangeDisplayed={5}
-          pageCount={100}
-          forcePage={searchQuery.page - 1}
+          pageCount={totalPageNum} // 총 페이지 수
+          forcePage={searchQuery.page - 1} //현재 페이지
           previousLabel="< previous"
           renderOnZeroPageCount={null}
           pageClassName="page-item"
