@@ -6,6 +6,7 @@ import { CATEGORY, STATUS, SIZE } from "../../../constants/product.constants";
 import "../style/adminProduct.style.css";
 import {
   clearError,
+  clearSuccess,
   createProduct,
   editProduct,
 } from "../../../features/product/productSlice";
@@ -31,11 +32,18 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
   const [stock, setStock] = useState([]);
   const dispatch = useDispatch();
   const [stockError, setStockError] = useState(false);
-  console.log("stock", stock);
+  // console.log("stock", stock);
+  const [priceError, setPriceError] = useState(false); // 가격 인풋 0일시 에러 state 추가
 
   // 제품 생성이 성공되었을때 다이얼로그를 종료해주고, 에러 날시 다이얼로그는 계속 켜져있음
   useEffect(() => {
-    if (success) setShowDialog(false);
+    if (success) {
+      setShowDialog(false);
+      setFormData({ ...InitialFormData }); // 폼 초기화
+
+      // 다이얼로그 닫힌 후 success 상태 초기화
+      dispatch(clearSuccess());
+    }
   }, [success]);
 
   useEffect(() => {
@@ -61,26 +69,58 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
   const handleClose = () => {
     //모든걸 초기화시키고;
     // 다이얼로그 닫아주기
+    setShowDialog(false);
+    setFormData({ ...InitialFormData });
+    setStock([]);
+    setStockError(false);
+    setPriceError(false);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("formdata", formData);
-    console.log("formdata", stock);
+    setStockError(false);
+    setPriceError(false);
+    // console.log("formdata", formData);
+    // console.log("formdata", stock);
     // [["s","3"]["m","4"]]; => {s:3,m:4}
-    //재고를 입력했는지 확인, 아니면 에러
-    if (stock.length === 0) return setStockError(true);
+
+    // 재고를 입력했는지 확인, 아니면 에러
+    if (stock.length === 0) {
+      setStockError(true);
+      return;
+    } else {
+      setStockError(false); // Clear error if stock is present
+    }
+
+    // 가격이 0으로 입력시 에러
+    if (formData.price === 0) {
+      setPriceError(true);
+      // console.log("Price is invalid:", formData.price);
+      return;
+    } else {
+      setPriceError(false); // Clear error if price is valid
+    }
+
     // 재고를 배열에서 객체로 바꿔주기
     const totalStock = stock.reduce((total, item) => {
       return { ...total, [item[0]]: parseInt(item[1]) };
     }, {});
-    console.log("formdata", totalStock);
+
+    // 재고가 총합이 0이면 에러 처리
+    if (Object.values(totalStock).some((quantity) => quantity <= 0)) {
+      setStockError(true);
+      return;
+    }
+
     // [['M',2]] 에서 {M:2}로
     if (mode === "new") {
       //새 상품 만들기
       dispatch(createProduct({ ...formData, stock: totalStock }));
     } else {
       // 상품 수정하기
+      // dispatch(
+      //   editProduct({ ...formData, stock: totalStock, id: selectedProduct.id })
+      // );
     }
   };
 
@@ -88,9 +128,18 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
     //form에 데이터 넣어주기
     const { id, value } = event.target;
     setFormData({ ...formData, [id]: value });
+
+    // price 입력값이 0에서 다른값으로 변경될시 priceerror상태 초기화
+    if (id === "price" && parseFloat(value) !== 0) {
+      setPriceError(false);
+    }
   };
 
   const addStock = () => {
+    // Clear stockError when adding a new stock entry
+    if (stockError) {
+      setStockError(false);
+    }
     //재고타입 추가시 배열에 새 배열 추가
     setStock([...stock, []]);
   };
@@ -274,6 +323,11 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
               type="number"
               placeholder="0"
             />
+            {priceError && (
+              <span className="error-message text-danger">
+                Price must be greater than 0.
+              </span>
+            )}
           </Form.Group>
 
           <Form.Group as={Col} controlId="category">
