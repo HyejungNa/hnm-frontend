@@ -7,13 +7,12 @@ export const getProductList = createAsyncThunk(
   "products/getProductList",
   async (query, { rejectWithValue }) => {
     try {
-      // const response = await api.get("/product");
       const response = await api.get("/product", { params: { ...query } });
-      console.log("rrr", response);
+      // console.log("rrr", response);
       if (response.status !== 200) throw new Error(response.error);
-      return response.data.data;
+      return response.data;
     } catch (error) {
-      rejectWithValue(error.error);
+      return rejectWithValue(error.error);
     }
   }
 );
@@ -28,6 +27,7 @@ export const createProduct = createAsyncThunk(
   async (formData, { dispatch, rejectWithValue }) => {
     try {
       const response = await api.post("/product", formData);
+
       if (response.status !== 200) throw new Error(response.error);
       dispatch(
         showToastMessage({
@@ -35,7 +35,7 @@ export const createProduct = createAsyncThunk(
           status: "success",
         })
       );
-      return response.data.data;
+      return response.data;
     } catch (error) {
       return rejectWithValue(error.error);
     }
@@ -45,6 +45,19 @@ export const createProduct = createAsyncThunk(
 export const deleteProduct = createAsyncThunk(
   "products/deleteProduct",
   async (id, { dispatch, rejectWithValue }) => {}
+
+  //   "products/deleteProduct",
+  //   async (id, { dispatch, rejectWithValue }) => {
+  //     try {
+  //       const response = await api.delete(`/product/${id}`);
+  //       if (response.status !== 200) throw new Error(response.error);
+  //       dispatch(showToastMessage({ message: "Product deleted successfully", status: "success" }));
+  //       return id; // Return the ID of the deleted product
+  //     } catch (error) {
+  //       return rejectWithValue(error.error);
+  //     }
+  //   }
+  // );
 );
 
 export const editProduct = createAsyncThunk(
@@ -74,6 +87,10 @@ const productSlice = createSlice({
       state.error = "";
       state.success = false;
     },
+    // 다이얼로그가 닫힌 후 success 상태 초기화를 위한 액션
+    clearSuccess: (state) => {
+      state.success = false;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -97,16 +114,21 @@ const productSlice = createSlice({
       })
       .addCase(getProductList.fulfilled, (state, action) => {
         state.loading = false;
-        state.productList = action.payload;
+        state.productList = action.payload.data; // 전체 상품 리스트 갱신
         state.error = "";
+        state.totalPageNum = action.payload.totalPageNum;
       })
       .addCase(getProductList.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });
+    // .addCase(deleteProduct.fulfilled, (state, action) => {
+    //   // Remove the deleted product from the product list
+    //   state.productList = state.productList.filter((product) => product.id !== action.payload);
+    // });
   },
 });
 
-export const { setSelectedProduct, setFilteredList, clearError } =
+export const { setSelectedProduct, setFilteredList, clearError, clearSuccess } =
   productSlice.actions;
 export default productSlice.reducer;
