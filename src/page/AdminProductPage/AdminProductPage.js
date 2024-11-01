@@ -59,8 +59,18 @@ const AdminProductPage = () => {
   };
 
   const openEditForm = (product) => {
-    //edit모드로 설정하고
-    // 아이템 수정다이얼로그 열어주기
+    // edit모드로 설정하고
+    setMode("edit");
+
+    // `product`의 `_id`가 있는지 확인
+    if (!product || !product._id) {
+      console.error("Invalid product selected for editing.");
+      return;
+    }
+
+    // 아이템 수정다이얼로그 열어주기 (수정할값을 미리 불러오기)
+    dispatch(setSelectedProduct(product)); // 선택한 아이템을 저장하는걸 호출 (api 호출은아님)
+    setShowDialog(true);
   };
 
   const handleClickNewItem = () => {
