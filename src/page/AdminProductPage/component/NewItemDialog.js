@@ -26,9 +26,12 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
   const { error, success, selectedProduct } = useSelector(
     (state) => state.product
   );
+
+  // mode가 new일시 비어있는 폼을보여주고, edit모드일때는 selectedProduct내용을 보여줌
   const [formData, setFormData] = useState(
     mode === "new" ? { ...InitialFormData } : selectedProduct
   );
+
   const [stock, setStock] = useState([]);
   const dispatch = useDispatch();
   const [stockError, setStockError] = useState(false);
@@ -78,8 +81,8 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setStockError(false);
-    setPriceError(false);
+    // setStockError(false);
+    // setPriceError(false);
     // console.log("formdata", formData);
     // console.log("formdata", stock);
     // [["s","3"]["m","4"]]; => {s:3,m:4}
@@ -118,9 +121,9 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
       dispatch(createProduct({ ...formData, stock: totalStock }));
     } else {
       // 상품 수정하기
-      // dispatch(
-      //   editProduct({ ...formData, stock: totalStock, id: selectedProduct.id })
-      // );
+      dispatch(
+        editProduct({ ...formData, stock: totalStock, id: selectedProduct._id })
+      );
     }
   };
 
