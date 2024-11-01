@@ -55,7 +55,12 @@ const AdminProductPage = () => {
   }, [searchQuery]);
 
   const deleteItem = (id) => {
-    //아이템 삭제하가ㅣ
+    // 아이템 삭제하기
+    if (!window.confirm("Are you sure you want to delete this product?"))
+      return;
+    dispatch(deleteProduct(id)).then(() => {
+      dispatch(getProductList({ ...searchQuery }));
+    });
   };
 
   const openEditForm = (product) => {

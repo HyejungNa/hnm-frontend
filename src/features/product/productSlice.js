@@ -45,20 +45,20 @@ export const createProduct = createAsyncThunk(
 
 export const deleteProduct = createAsyncThunk(
   "products/deleteProduct",
-  async (id, { dispatch, rejectWithValue }) => {}
-
-  //   "products/deleteProduct",
-  //   async (id, { dispatch, rejectWithValue }) => {
-  //     try {
-  //       const response = await api.delete(`/product/${id}`);
-  //       if (response.status !== 200) throw new Error(response.error);
-  //       dispatch(showToastMessage({ message: "Product deleted successfully", status: "success" }));
-  //       return id; // Return the ID of the deleted product
-  //     } catch (error) {
-  //       return rejectWithValue(error.error);
-  //     }
-  //   }
-  // );
+  async (id, { dispatch, rejectWithValue }) => {
+    try {
+      const res = await api.delete(`/product/${id}`);
+      dispatch(
+        showToastMessage({
+          message: "Product deleted successfully.",
+          status: "success",
+        })
+      );
+      return res.data;
+    } catch (error) {
+      return rejectWithValue(error.error);
+    }
+  }
 );
 
 export const editProduct = createAsyncThunk(
@@ -145,11 +145,20 @@ const productSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
         state.success = false;
+      })
+      // 상품 삭제
+      .addCase(deleteProduct.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(deleteProduct.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = "";
+        state.success = true;
+      })
+      .addCase(deleteProduct.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
       });
-    // .addCase(deleteProduct.fulfilled, (state, action) => {
-    //   // Remove the deleted product from the product list
-    //   state.productList = state.productList.filter((product) => product.id !== action.payload);
-    // });
   },
 });
 
