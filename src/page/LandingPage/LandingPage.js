@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ProductCard from "./components/ProductCard";
-import { Row, Col, Container } from "react-bootstrap";
+import { Row, Col, Container, Spinner } from "react-bootstrap";
 import { useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductList } from "../../features/product/productSlice";
@@ -11,18 +11,26 @@ const LandingPage = () => {
   const productList = useSelector((state) => state.product.productList);
   const [query] = useSearchParams();
   const name = query.get("name");
+  // 로딩스피너 state
+  const [loading, setLoading] = useState(true);
+
+  // 로딩스피너 추가
   useEffect(() => {
-    dispatch(
-      getProductList({
-        name,
-      })
-    );
-  }, [query]);
+    setLoading(true); // fetching전에 true로 set
+    dispatch(getProductList({ name })).then(() => setLoading(false)); // fetching후 false로 변경
+  }, [dispatch, name]);
 
   return (
     <Container>
       <Row>
-        {productList.length > 0 ? (
+        {/* 로딩스피너 추가 */}
+        {loading ? (
+          <div className="text-align-center">
+            <Spinner animation="border" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </Spinner>
+          </div>
+        ) : productList.length > 0 ? (
           productList.map((item) => (
             <Col md={3} sm={12} key={item._id}>
               <ProductCard item={item} />
