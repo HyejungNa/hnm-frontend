@@ -12,18 +12,27 @@ const ProductDetail = () => {
   const dispatch = useDispatch();
   const { selectedProduct, loading } = useSelector((state) => state.product);
   const [size, setSize] = useState("");
-  const { id } = useParams();
+  const { id } = useParams(); // 상품 아이디값 들고오기 (상품 상세페이지 렌더링, 사이즈선택시 필요)
   const [sizeError, setSizeError] = useState(false);
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state.user.user); // 사이즈선택후 추가시 유저값으로 로그인 여부 판별
   const navigate = useNavigate();
 
   const addItemToCart = () => {
     //사이즈를 아직 선택안했다면 에러
+    if (size === "") {
+      setSizeError(true);
+      return;
+    }
     // 아직 로그인을 안한유저라면 로그인페이지로
+    if (!user) navigate("/login");
     // 카트에 아이템 추가하기
+    dispatch(addToCart({ id, size }));
   };
   const selectSize = (value) => {
     // 사이즈 추가하기
+    // console.log("valuse", value);
+    if (sizeError) setSizeError(false);
+    setSize(value);
   };
 
   useEffect(() => {
@@ -51,7 +60,7 @@ const ProductDetail = () => {
         <Col className="product-info-area" sm={6}>
           <div className="product-info">{selectedProduct.name}</div>
           <div className="product-info">
-            ₩ {currencyFormat(selectedProduct.price)}
+            $ {currencyFormat(selectedProduct.price)}
           </div>
           <div className="product-info">{selectedProduct.description}</div>
 
@@ -67,7 +76,7 @@ const ProductDetail = () => {
               id="dropdown-basic"
               align="start"
             >
-              {size === "" ? "사이즈 선택" : size.toUpperCase()}
+              {size === "" ? "Choose your size" : size.toUpperCase()}
             </Dropdown.Toggle>
 
             <Dropdown.Menu className="size-drop-down">
@@ -86,10 +95,10 @@ const ProductDetail = () => {
             </Dropdown.Menu>
           </Dropdown>
           <div className="warning-message">
-            {sizeError && "사이즈를 선택해주세요."}
+            {sizeError && "Please select a size."}
           </div>
           <Button variant="dark" className="add-button" onClick={addItemToCart}>
-            추가
+            Add
           </Button>
         </Col>
       </Row>
