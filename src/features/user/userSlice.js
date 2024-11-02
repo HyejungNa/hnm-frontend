@@ -35,7 +35,7 @@ export const logout = createAsyncThunk(
 
       dispatch(
         showToastMessage({
-          message: "로그아웃 되었습니다.",
+          message: "You have been logged out.",
           status: "success",
         })
       );
