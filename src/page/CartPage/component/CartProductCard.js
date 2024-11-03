@@ -21,8 +21,8 @@ const CartProductCard = ({ item }) => {
     if (!window.confirm("Are you sure you want to delete this product?"))
       return;
 
+    // 카트에 있는 아이템 삭제후 -> 카트안에 있는 아이템 총갯수 업데이트하기
     dispatch(deleteCartItem(id)).then(() => {
-      // 카트에 있는 아이템 삭제후에 카트안에 있는 아이템 총갯수 업데이트
       dispatch(getCartQty());
     });
   };
