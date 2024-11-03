@@ -38,6 +38,23 @@ const PaymentPage = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     // 오더 생성하기
+    const { firstName, lastName, contact, address, city, zip } = shipInfo;
+
+    dispatch(
+      createOrder({
+        totalPrice,
+        shipTo: { address, city, zip },
+        contact: { firstName, lastName, contact },
+        orderList: cartList.map((item) => {
+          return {
+            productId: item.productId._id,
+            price: item.productId.price,
+            qty: item.qty, // 특정 아이템(productId)에 속해있는 정보가 아니고 밖에 있는정보였기에 productId사용안함
+            size: item.size,
+          };
+        }),
+      })
+    );
   };
 
   const handleFormChange = (event) => {
@@ -51,9 +68,11 @@ const PaymentPage = () => {
     //카드정보 넣어주기
     const { name, value } = event.target;
     if (name === "expiry") {
-      let newValue = cc_expires_format(value);
-      setCardValue({ ...cardValue, [name]: newValue }); // 카드 유효기간 숫자 자동 포맷팅 되도록 추가
+      let newValue = cc_expires_format(value); // 카드 유효기간 숫자 자동 포맷팅 되도록 추가
+      setCardValue({ ...cardValue, [name]: newValue });
+      return;
     }
+    setCardValue({ ...cardValue, [name]: value });
   };
 
   const handleInputFocus = (e) => {
