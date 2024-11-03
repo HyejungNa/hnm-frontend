@@ -33,7 +33,7 @@ const AppLayout = ({ children }) => {
     }
   }, [dispatch]);
 
-  // 카트에있는 전체 아이템 갯수 항상 보여줌 (nav bar에 위치)
+  // 카트안에있는 전체 아이템 갯수 항상 최신값으로 보여줌 (nav bar에 위치)
   useEffect(() => {
     if (user) {
       dispatch(getCartQty());
