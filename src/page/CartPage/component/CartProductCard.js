@@ -2,9 +2,14 @@ import React from "react";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Row, Col, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { currencyFormat } from "../../../utils/number";
-import { updateQty, deleteCartItem } from "../../../features/cart/cartSlice";
+import {
+  updateQty,
+  deleteCartItem,
+  getCartQty,
+} from "../../../features/cart/cartSlice";
+
 const CartProductCard = ({ item }) => {
   const dispatch = useDispatch();
 
@@ -13,7 +18,13 @@ const CartProductCard = ({ item }) => {
   };
 
   const deleteCart = (id) => {
-    dispatch(deleteCartItem(id));
+    if (!window.confirm("Are you sure you want to delete this product?"))
+      return;
+
+    dispatch(deleteCartItem(id)).then(() => {
+      // 카트에 있는 아이템 삭제후에 카트안에 있는 아이템 총갯수 업데이트
+      dispatch(getCartQty());
+    });
   };
 
   return (
@@ -35,10 +46,10 @@ const CartProductCard = ({ item }) => {
           </div>
 
           <div>
-            <strong>₩ {currencyFormat(item.productId.price)}</strong>
+            <strong>$ {currencyFormat(item.productId.price)}</strong>
           </div>
           <div>Size: {item.size}</div>
-          <div>Total: ₩ {currencyFormat(item.productId.price * item.qty)}</div>
+          <div>Total: $ {currencyFormat(item.productId.price * item.qty)}</div>
           <div>
             Quantity:
             <Form.Select
