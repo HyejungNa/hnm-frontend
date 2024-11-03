@@ -3,6 +3,7 @@ export const currencyFormat = (value) => {
   return number.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
 };
 
+// 카드 유효기간 숫자 자동 포맷팅
 export const cc_expires_format = (string) => {
   return string
     .replace(
