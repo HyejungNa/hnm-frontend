@@ -32,6 +32,7 @@ const OrderReceipt = ({ cartList, totalPrice }) => {
           <strong>$ {currencyFormat(totalPrice)}</strong>
         </div>
       </div>
+      {/* 카트가 비어있다면 결제하기 버튼은 숨겨주기 */}
       {location.pathname.includes("/cart") && cartList.length > 0 && (
         <Button
           variant="dark"
@@ -45,13 +46,15 @@ const OrderReceipt = ({ cartList, totalPrice }) => {
       <div>
         {/* 가능한 결제 수단 귀하가 결제 단계에 도달할 때까지 가격 및 배송료는
         확인되지 않습니다. */}
-        Available Payment Methods. Prices and shipping fees will not be
-        confirmed until you reach the payment stage.
+        Prices and shipping costs are not confirmed until you've reached the
+        checkout.
         <div>
+          <br />
           {/* 30일의 반품 가능 기간, 반품 수수료 및 미수취시 발생하는 추가 배송 요금
           읽어보기 반품 및 환불 */}
-          Read about the 30-day return policy, return fees, and additional
-          shipping charges for undelivered items.
+          30 days for exchange and returns. Our delivery partner is working hard
+          to ensure you receive your items as quickly as possible, but due to
+          the recent lockdowns please be advised that delays may occur.
         </div>
       </div>
     </div>
