@@ -87,7 +87,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
     // console.log("formdata", stock);
     // [["s","3"]["m","4"]]; => {s:3,m:4}
 
-    // 재고를 입력했는지 확인, 아니면 에러
+    // 재고를 입력했는지 확인(stock array가 empty한지), 재고가 없으면 에러
     if (stock.length === 0) {
       setStockError(true);
       return;
@@ -95,7 +95,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
       setStockError(false); // Clear error if stock is present
     }
 
-    // 가격이 0으로 입력시 에러
+    // 가격을 0으로 입력시 에러
     if (formData.price === 0) {
       setPriceError(true);
       // console.log("Price is invalid:", formData.price);
@@ -109,7 +109,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
       return { ...total, [item[0]]: parseInt(item[1]) };
     }, {});
 
-    // 재고 총합이 0일때도 에러처리하지않고 받아주기
+    // 각 재고 숫자가 최소1이상이아닌, 0이상일때부터도 에러처리하지않고 받아주기
     if (Object.values(totalStock).every((quantity) => quantity === 0)) {
       setStockError(true);
       return;
