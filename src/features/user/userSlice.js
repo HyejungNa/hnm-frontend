@@ -33,9 +33,12 @@ export const logout = createAsyncThunk(
       // 로컬 스토리지의 토큰 제거
       sessionStorage.removeItem("token");
 
+      // 로그아웃후 카트 비워주기
+      dispatch(initialCart());
+
       dispatch(
         showToastMessage({
-          message: "You have been logged out.",
+          message: "You have been logged.",
           status: "success",
         })
       );
