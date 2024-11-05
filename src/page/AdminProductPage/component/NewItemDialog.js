@@ -109,11 +109,16 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
       return { ...total, [item[0]]: parseInt(item[1]) };
     }, {});
 
-    // 재고가 총합이 0이면 에러 처리
-    if (Object.values(totalStock).some((quantity) => quantity <= 0)) {
+    // 재고 총합이 0일때도 에러처리하지않고 받아주기
+    if (Object.values(totalStock).every((quantity) => quantity === 0)) {
       setStockError(true);
       return;
     }
+    // 재고가 총합이 0이면 에러 처리
+    // if (Object.values(totalStock).some((quantity) => quantity <= 0)) {
+    //   setStockError(true);
+    //   return;
+    // }
 
     // [['M',2]] 에서 {M:2}로
     if (mode === "new") {
@@ -288,6 +293,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
                     placeholder="number of stock"
                     value={item[1]}
                     required
+                    min="0" // Allows 0 as a valid stock input
                   />
                 </Col>
                 <Col sm={2}>
