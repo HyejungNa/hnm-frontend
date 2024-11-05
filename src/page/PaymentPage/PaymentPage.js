@@ -67,11 +67,14 @@ const PaymentPage = () => {
   const handlePaymentInfoChange = (event) => {
     //카드정보 넣어주기
     const { name, value } = event.target;
+
+    // 특정경우인 expiry 입력필드만 변경되었을때 실행
     if (name === "expiry") {
       let newValue = cc_expires_format(value); // 카드 유효기간 숫자 자동 포맷팅 되도록 추가
       setCardValue({ ...cardValue, [name]: newValue });
-      return;
+      return; // 리턴되면서 뒤에있는 setcardvalue실행안됨
     }
+    // 위 if조건에 맞지않는 다른 필드들이 변경될때 실행
     setCardValue({ ...cardValue, [name]: value });
   };
 
