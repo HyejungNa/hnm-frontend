@@ -31,8 +31,17 @@ const PaymentPage = () => {
 
   const { cartList, totalPrice } = useSelector((state) => state.cart);
 
+  // useEffect실행 되는경우 - 1.orderNum이 변경될때 2.맨처음에 렌더링될때
   useEffect(() => {
     // 오더번호를 받으면 어디로 갈까?
+    if (firstLoading) {
+      // 이 페이지에 처음들어오는경우 (useEffect가 처음에 호출될때 중복되는오더넘버의 성공페이지로 넘어가는걸 막아줌)
+      setFirstLoading(false);
+    } else {
+      if (orderNum !== "") {
+        navigate("/payment/success"); // orderCompletePage로 이동
+      }
+    }
   }, [orderNum]);
 
   const handleSubmit = (event) => {
