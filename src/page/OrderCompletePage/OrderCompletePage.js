@@ -6,6 +6,7 @@ import "../PaymentPage/style/paymentPage.style.css";
 
 const OrderCompletePage = () => {
   const { orderNum } = useSelector((state) => state.order);
+
   if (orderNum === "")
     return (
       <Container className="confirmation-page">
@@ -16,6 +17,7 @@ const OrderCompletePage = () => {
         </div>
       </Container>
     );
+
   return (
     <Container className="confirmation-page">
       <img
@@ -27,7 +29,7 @@ const OrderCompletePage = () => {
       <h2>Order Completed!</h2>
       <div>Order Number : {orderNum}</div>
       <div>
-        Please check your order in the My order menu
+        Please check your order in the 'My order' menu.
         <div className="text-align-center">
           <Link to={"/account/purchase"}>Go to My order</Link>
         </div>
