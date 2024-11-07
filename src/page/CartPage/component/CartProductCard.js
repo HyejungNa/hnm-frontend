@@ -14,8 +14,8 @@ const CartProductCard = ({ item }) => {
   const dispatch = useDispatch();
 
   // 재고 데이터를 가져와 선택된 사이즈의 재고 수량만큼 dropdown 생성
-  const stock = { ...item.productId.stock }; // 상품의 각 사이즈별 재고정보 복사
-  const stockCount = stock[item.size]; // 현재 선택된 사이즈에 대한 실제 재고 수량 가져오기
+  // const stock = { ...item.productId.stock }; // 상품의 각 사이즈별 재고정보 복사
+  // const stockCount = stock[item.size]; // 현재 선택된 사이즈에 대한 실제 재고 수량 가져오기
 
   const handleQtyChange = (id, value) => {
     dispatch(updateQty({ id, value }));
@@ -65,12 +65,14 @@ const CartProductCard = ({ item }) => {
               className="qty-dropdown"
             >
               {/* 바로 밑하드코딩대신 사이즈별 남아있는 재고 수량만큼 dropdown 생성함 : stockCount값만큼 수량옵션 생성*/}
-              {[...Array(stockCount)].map((_, index) => (
+              {/* <에러케이스>  1. 카트에 넣고 그사이에 누가구매시 재고가 0이되어도 카트에 보여짐, 2.카트에 넣을당시 3개였다가 그사이 누가구매해서 수량이 1개가남으면 카트아이템 수량이 자동으로 유저허락없이 1개로 바뀜*/}
+              {/* {[...Array(stockCount)].map((_, index) => (
                 <option key={index + 1} value={index + 1}>
                   {index + 1}
                 </option>
-              ))}
-              {/* <option value={1}>1</option>
+              ))} */}
+              {/* 위코드사용시 에러나서 원상복구 */}
+              <option value={1}>1</option>
               <option value={2}>2</option>
               <option value={3}>3</option>
               <option value={4}>4</option>
@@ -79,7 +81,7 @@ const CartProductCard = ({ item }) => {
               <option value={7}>7</option>
               <option value={8}>8</option>
               <option value={9}>9</option>
-              <option value={10}>10</option> */}
+              <option value={10}>10</option>
             </Form.Select>
           </div>
         </Col>
