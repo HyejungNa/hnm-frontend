@@ -33,6 +33,7 @@ export const createOrder = createAsyncThunk(
   }
 );
 
+// 개인유저가 주문한 내역 확인할수있는 my order
 export const getOrder = createAsyncThunk(
   "order/getOrder",
   async (_, { rejectWithValue, dispatch }) => {
@@ -46,15 +47,78 @@ export const getOrder = createAsyncThunk(
   }
 );
 
+// admin page에서 전체 order list 확인
 export const getOrderList = createAsyncThunk(
   "order/getOrderList",
-  async (query, { rejectWithValue, dispatch }) => {}
+  async (query, { rejectWithValue, dispatch }) => {
+    try {
+      const response = await api.get("/order", { params: { ...query } });
+      if (response.status !== 200) throw new Error(response.error);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
 );
 
+// admin page에서 주문 status 업데이트 기능
 export const updateOrder = createAsyncThunk(
   "order/updateOrder",
-  async ({ id, status }, { dispatch, rejectWithValue }) => {}
+  async ({ id, status }, { dispatch, rejectWithValue }) => {
+    try {
+      const response = await api.put(`/order/${id}`, { status });
+
+      if (response.data.status === "success") {
+        dispatch(
+          showToastMessage({
+            message: "Order status updated successfully",
+            status: "success",
+          })
+        );
+        return response.data.order;
+      }
+    } catch (error) {
+      dispatch(
+        showToastMessage({
+          message:
+            error.message || "Failed to update order status, please try again",
+          status: "error",
+        })
+      );
+      return rejectWithValue(error.message);
+    }
+  }
 );
+/* <에러발생해서 위코드로 수정> */
+// export const updateOrder = createAsyncThunk(
+//   "order/updateOrder",
+//   async ({ id, status }, { dispatch, rejectWithValue }) => {
+//     try {
+//       const response = await api.put(`/order/${id}`, { status });
+//       if (response !== 200) throw new Error(response.error);
+//       // dispatch({})
+//       console.log("response", response);
+
+//       dispatch(
+//         showToastMessage({
+//           message: "Order status updated successfully!",
+//           status: "success",
+//         })
+//       );
+//       dispatch(getOrderList());
+//       return response.data.data;
+//     } catch (error) {
+//       dispatch(
+//         showToastMessage({
+//           message:
+//             error.error || "Failed to update order status, please try again.",
+//           status: "fail",
+//         })
+//       );
+//       return rejectWithValue(error.error);
+//     }
+//   }
+// );
 
 // Order slice
 const orderSlice = createSlice({
@@ -88,6 +152,32 @@ const orderSlice = createSlice({
         state.error = "";
       })
       .addCase(getOrder.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(getOrderList.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(getOrderList.fulfilled, (state, action) => {
+        state.loading = false;
+        state.orderList = action.payload.data;
+        state.totalPageNum = action.payload.totalPageNum;
+        state.error = "";
+      })
+      .addCase(getOrderList.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(updateOrder.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(updateOrder.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = "";
+        // state.orderList = action.payload.data;
+        // state.totalPageNum = action.payload.totalPageNum;
+      })
+      .addCase(updateOrder.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });
