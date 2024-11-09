@@ -8,16 +8,23 @@ const OrderTable = ({ header, data, openEditForm }) => {
     <div className="overflow-x">
       <Table striped bordered hover>
         <thead>
-          <tr>
+          {/* <tr>
             {header.map((title) => (
               <th>{title}</th>
+            ))}
+          </tr> */}
+          <tr>
+            {header.map((title, index) => (
+              <th key={index}>{title}</th> // header map에 key 추가
             ))}
           </tr>
         </thead>
         <tbody>
           {data.length > 0 ? (
             data.map((item, index) => (
-              <tr onClick={() => openEditForm(item)}>
+              // data map에 key 추가
+              // <tr onClick={() => openEditForm(item)}>
+              <tr key={item.orderNum} onClick={() => openEditForm(item)}>
                 <th>{index}</th>
                 <th>{item.orderNum}</th>
                 <th>{item.createdAt.slice(0, 10)}</th>
@@ -29,7 +36,7 @@ const OrderTable = ({ header, data, openEditForm }) => {
                       ` and ${item.items.length - 1} more`}
                   </th>
                 ) : (
-                  <th></th>
+                  <th />
                 )}
 
                 <th>{item.shipTo.address + " " + item.shipTo.city}</th>
@@ -41,7 +48,12 @@ const OrderTable = ({ header, data, openEditForm }) => {
               </tr>
             ))
           ) : (
-            <tr>No Data to show</tr>
+            // <tr>No Data to show</tr>
+            // * 텍스트는 반드시 <td> 또는 <th>태그로 감싸야함
+
+            <tr>
+              <td>No Data to show</td>
+            </tr>
           )}
         </tbody>
       </Table>
