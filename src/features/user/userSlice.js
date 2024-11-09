@@ -54,7 +54,7 @@ export const logout = createAsyncThunk(
 
       return null;
     } catch (error) {
-      console.error("Logout error:", error);
+      // console.error("Logout error:", error);
       throw error;
     }
   }
