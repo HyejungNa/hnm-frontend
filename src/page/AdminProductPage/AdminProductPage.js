@@ -90,6 +90,14 @@ const AdminProductPage = () => {
     setSearchQuery({ ...searchQuery, page: selected + 1 });
   };
 
+  const getPageCount = () => {
+    return totalPageNum > 0 ? totalPageNum : 1; // 최소 1 페이지를 보장 (만약 totalPageNum이 0이라면 1로 설정하여 최소한 한 페이지가 존재한다고 처리)
+  };
+
+  const getForcePage = () => {
+    return searchQuery.page && searchQuery.page > 0 ? searchQuery.page - 1 : 0; // 유효한 페이지 인덱스를 보장 (forcePage가 유효한 페이지 인덱스(0 이상)로 설정되도록 하여, 값이 없거나 유효하지 않으면 기본값인 0을 설정)
+  };
+
   return (
     <div className="locate-center">
       <Container>
@@ -115,8 +123,10 @@ const AdminProductPage = () => {
           nextLabel="next >"
           onPageChange={handlePageClick}
           pageRangeDisplayed={5}
-          pageCount={totalPageNum} // 총 페이지 수
-          forcePage={searchQuery.page - 1} //현재 페이지
+          // pageCount={totalPageNum} // 총 페이지 수
+          pageCount={getPageCount()}
+          // forcePage={searchQuery.page - 1} //현재 페이지
+          forcePage={getForcePage()}
           previousLabel="< previous"
           renderOnZeroPageCount={null}
           pageClassName="page-item"
