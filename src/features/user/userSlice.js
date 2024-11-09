@@ -23,7 +23,16 @@ export const loginWithEmail = createAsyncThunk(
 
 export const loginWithGoogle = createAsyncThunk(
   "user/loginWithGoogle",
-  async (token, { rejectWithValue }) => {}
+  async (token, { rejectWithValue }) => {
+    try {
+      const response = await api.post("/auth/google", { token });
+      sessionStorage.setItem("token", response.data.token);
+      // if (response.status !== 200) throw new Error(response.error);
+      return response.data.user;
+    } catch (error) {
+      return rejectWithValue(error.error);
+    }
+  }
 );
 
 export const logout = createAsyncThunk(
@@ -158,6 +167,19 @@ const userSlice = createSlice({
       })
       .addCase(logout.rejected, (state) => {
         state.loading = false;
+      })
+      // 위 일반 로그인 로직과 같음
+      .addCase(loginWithGoogle.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(loginWithGoogle.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+        state.loginError = null;
+      })
+      .addCase(loginWithGoogle.rejected, (state, action) => {
+        state.loading = false;
+        state.loginError = action.payload;
       });
   },
 });

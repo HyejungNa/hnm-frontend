@@ -45,6 +45,8 @@ const Login = () => {
 
   const handleGoogleLogin = async (googleData) => {
     //구글 로그인 하기
+    // console.log("hehe", googleData);
+    dispatch(loginWithGoogle(googleData.credential));
   };
 
   // 로그인해서 유저정보가 있는경우 로그인페이지를 보여주지않도록해줌
@@ -99,6 +101,13 @@ const Login = () => {
           <div className="text-align-center mt-2">
             <p>- Log in with an external account -</p>
             <div className="display-center">
+              {/* 1. 구글 로그인 버튼 가져오기
+              2. Oauth 로그인 위해서 google api사이트 가입하고 클라이언트키, 시크릿키 받아오기
+              3. 로그인
+              4. 백엔드에서 로그인하기
+                토큰값을 읽어와서 => 유저정보를 뽑아내고 (email)
+                a. 이미 로그인을 한적이 있는 유저 => 로그인 시키고 토큰값 주면완료
+                b. 처음 로그인 시도를 한 유저 => 유저정보 먼저 새로 생성 => 토큰값 넘겨주기 */}
               <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
                 <GoogleLogin
                   onSuccess={handleGoogleLogin}
