@@ -1,0 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap");
+
+.nav-logo {
+  display: flex;
+  justify-content: center;
+}
+
+.logo {
+  text-decoration: none;
+}
+
+.logo-text {
+  font-family: "Playfair Display", serif;
+  letter-spacing: 1.5px;
+  color: black; /*#e60026*/
+  font-size: 2.3rem;
+}
+
+.logo-text:hover {
+  opacity: 0.8;
+  transition: opacity 0.2s ease-in-out;
+}
