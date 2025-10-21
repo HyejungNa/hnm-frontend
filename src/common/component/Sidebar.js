@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import "../style/sidebar.style.css";
 import { Offcanvas, Navbar, Container } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
+import Logo from "../component/Logo";
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -14,9 +16,7 @@ const Sidebar = () => {
   const NavbarContent = () => {
     return (
       <div>
-        <Link to="/">
-          <img width={100} src="/image/hm-logo.png" alt="hm-logo.png" />
-        </Link>
+        <Logo />
         <div className="sidebar-item">Admin Account</div>
         <ul className="sidebar-area">
           <li
@@ -41,7 +41,7 @@ const Sidebar = () => {
 
       <Navbar bg="light" expand={false} className="mobile-sidebar-toggle">
         <Container fluid>
-          <img width={80} src="/image/hm-logo.png" alt="hm-logo.png" />
+          <Logo />
           <Navbar.Brand href="#"></Navbar.Brand>
           <Navbar.Toggle
             aria-controls={`offcanvasNavbar-expand`}
@@ -52,6 +52,7 @@ const Sidebar = () => {
             aria-labelledby={`offcanvasNavbarLabel-expand`}
             placement="start"
             className="sidebar"
+            onHide={() => setShow(false)}
             show={show}
           >
             <Offcanvas.Header closeButton></Offcanvas.Header>
