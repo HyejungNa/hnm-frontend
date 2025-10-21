@@ -24,7 +24,7 @@ const AdminProductPage = () => {
     name: query.get("name") || "",
   }); //검색 조건들을 저장하는 객체
 
-  const [mode, setMode] = useState("new");
+  const [mode, setMode] = useState("new"); // admin page에서 new는 비어있는 폼, edit은 채워져있는 폼 상태
 
   const tableHeader = [
     "#",

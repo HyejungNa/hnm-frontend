@@ -32,7 +32,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
     mode === "new" ? { ...InitialFormData } : selectedProduct
   );
 
-  const [stock, setStock] = useState([]);
+  const [stock, setStock] = useState([]); // [ [],[],[] ] 배열안의 배열형태
   const dispatch = useDispatch();
   const [stockError, setStockError] = useState(false);
   // console.log("stock", stock);
@@ -148,7 +148,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
     if (stockError) {
       setStockError(false);
     }
-    //재고타입 추가시 배열에 새 배열 추가
+    //재고타입 추가시 기존배열에 새 배열 추가
     setStock([...stock, []]);
   };
 
@@ -161,7 +161,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
   const handleSizeChange = (value, index) => {
     //  재고 사이즈 변환하기
     const newStock = [...stock];
-    newStock[index][0] = value; // e.g. [ [[s,3],[m,4],[xl,5]] ] 이중배열사용
+    newStock[index][0] = value; // e.g. [ [[s,3],[m,4],[xl,5]] ] 이중배열사용, 인덱스넘버안에있는 0번째 배열값
     setStock(newStock);
   };
 
