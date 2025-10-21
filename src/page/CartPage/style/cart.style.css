@@ -1,44 +1,84 @@
-.product-card-cart{
-    margin-bottom: 10px;
-}
-.qty-dropdown{
-    max-width:400px;
-}
-.trash-button{
-    background-color: white;
-    border: 1px solid gray;
-}
-.product-card-cart{
-    background-color: ghostwhite;
-    padding:10px;
-}
-.receipt-container{
-    border: 1px solid gray;
-    padding: 32px 24px;
-}
-.receipt-list{
-    list-style-type: none;
-    padding: 0;
-    border-bottom: 1px solid black;
+.product-card-cart {
+  margin-bottom: 10px;
 }
 
-.receipt-list li{
-    padding-bottom: 10px;
+.product-card-cart .col-md-9 > div {
+  padding-bottom: 4px;
 }
 
-.receipt-title{
-    margin-bottom: 20px;
+.cart-size-text {
+  color: gray;
 }
 
-.payment-button{
-   width: 100%;
-   padding: 16px;
-   margin-bottom: 20px;
+.qty-dropdown {
+  max-width: 400px;
 }
-.text-align-center{
-    text-align: center;
+
+.cart-item-price {
+  font-weight: bold;
 }
-.empty-bag{
-    background-color: white;
-    padding: 20px;
+
+.total-price {
+  text-align: right;
+  padding-top: 0.7em;
+  font-weight: bold;
+}
+
+.trash-button {
+  border: 1px solid gray;
+  border: none;
+  background-color: transparent;
+}
+.product-card-cart {
+  padding: 10px;
+}
+.receipt-container {
+  border: 1px solid gray;
+  padding: 32px 24px;
+}
+.receipt-list {
+  list-style-type: none;
+  padding: 0;
+  border-bottom: 1px solid black;
+}
+
+.receipt-list li {
+  padding-bottom: 10px;
+  font-weight: 400;
+}
+
+.receipt-title {
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.5em;
+  letter-spacing: 1.5px;
+}
+
+.receipt-total {
+  margin-bottom: 1em;
+}
+
+.payment-button {
+  width: 100%;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+.text-align-center {
+  text-align: center;
+}
+.empty-bag {
+  background-color: white;
+  padding: 20px;
+}
+
+.order-description {
+  font-size: 0.88em;
+  color: gray;
+}
+
+@media screen and (max-width: 765px) {
+  img {
+    padding-bottom: 0.7em;
+  }
 }

@@ -52,7 +52,7 @@ const OrderDetailDialog = ({ open, handleClose }) => {
           {selectedOrder.shipTo.address + " " + selectedOrder.shipTo.city}
         </p>
         <p>
-          Contact:
+          Contact:{" "}
           {`${
             selectedOrder.contact.firstName + selectedOrder.contact.lastName
           }, ${selectedOrder.contact.contact}`}

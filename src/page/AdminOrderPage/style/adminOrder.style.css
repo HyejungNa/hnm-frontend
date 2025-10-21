@@ -1,3 +1,9 @@
-.modal-dialog{
-    max-width: 700px;
+.locate-center {
+  width: 50%;
+}
+
+@media screen and (max-width: 765px) {
+  /* .locate-center{
+    width: 50%;
+  } */
 }

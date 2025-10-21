@@ -1,13 +1,13 @@
-
-.size-drop-down{
-    width:100%;
+.size-drop-down {
+  width: 100%;
 }
 
-.warning-message{
-    color:red;
+.warning-message {
+  color: red;
 }
 
-.product-info{
-    font-size: 20px;
-    margin-bottom: 10px;
+.product-info {
+  font-size: 20px;
+  font-weight: lighter;
+  margin-bottom: 10px;
 }
