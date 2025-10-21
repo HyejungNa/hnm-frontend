@@ -70,7 +70,7 @@ const ProductDetail = () => {
         <Col className="product-info-area" sm={6}>
           <div className="product-info">{selectedProduct.name}</div>
           <div className="product-info">
-            $ {currencyFormat(selectedProduct.price)}
+            ${currencyFormat(selectedProduct.price)}
           </div>
           <div className="product-info">{selectedProduct.description}</div>
 
@@ -86,7 +86,7 @@ const ProductDetail = () => {
               id="dropdown-basic"
               align="start"
             >
-              {size === "" ? "Choose your size" : size.toUpperCase()}
+              {size === "" ? "SELECT A SIZE " : size.toUpperCase()}
             </Dropdown.Toggle>
 
             <Dropdown.Menu className="size-drop-down">
@@ -108,7 +108,7 @@ const ProductDetail = () => {
             {sizeError && "Please select a size."}
           </div>
           <Button variant="dark" className="add-button" onClick={addItemToCart}>
-            Add
+            ADD TO CART
           </Button>
         </Col>
       </Row>

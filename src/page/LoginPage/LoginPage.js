@@ -71,17 +71,17 @@ const Login = () => {
         )}
         <Form className="login-form" onSubmit={handleLoginWithEmail}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
+            <Form.Label>E-MAIL</Form.Label>
             <Form.Control
               type="email"
-              placeholder="Enter email"
+              placeholder="Emaill"
               required
               onChange={(event) => setEmail(event.target.value)}
             />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
+            <Form.Label>PASSWORD</Form.Label>
             <Form.Control
               type="password"
               placeholder="Password"
@@ -91,15 +91,15 @@ const Login = () => {
           </Form.Group>
           <div className="display-space-between login-button-area">
             <Button variant="danger" type="submit" disabled={isSubmitting}>
-              {isSubmitting ? "Logging in..." : "Login"}
+              {isSubmitting ? "Logging in..." : "SIGN IN"}
             </Button>
             <div>
-              Don't have an account yet? <Link to="/register">Sign up</Link>
+              Don't have an account yet? <Link to="/register">SIGN UP</Link>
             </div>
           </div>
 
           <div className="text-align-center mt-2">
-            <p>- Log in with an external account -</p>
+            <p className="text-muted">- OR -</p>
             <div className="display-center">
               {/* 1. 구글 로그인 버튼 가져오기
               2. Oauth 로그인 위해서 google api사이트 가입하고 클라이언트키, 시크릿키 받아오기

@@ -19,17 +19,17 @@ const OrderReceipt = ({ cartList, totalPrice }) => {
                 <div>{item.productId.name}</div>
 
                 {/* 아이템 하나당 가격 */}
-                <div>$ {currencyFormat(item.productId.price * item.qty)}</div>
+                <div>${currencyFormat(item.productId.price * item.qty)}</div>
               </div>
             </li>
           ))}
       </ul>
-      <div className="display-flex space-between receipt-title">
+      <div className="display-flex space-between receipt-total">
         <div>
           <strong>Total:</strong>
         </div>
         <div>
-          <strong>$ {currencyFormat(totalPrice)}</strong>
+          <strong>${currencyFormat(totalPrice)}</strong>
         </div>
       </div>
       {/* 카트가 비어있다면 결제하기 버튼은 숨겨주기 */}
@@ -43,19 +43,15 @@ const OrderReceipt = ({ cartList, totalPrice }) => {
         </Button>
       )}
 
-      <div>
+      <div className="order-description">
         {/* 가능한 결제 수단 귀하가 결제 단계에 도달할 때까지 가격 및 배송료는
         확인되지 않습니다. */}
-        Prices and shipping costs are not confirmed until you've reached the
-        checkout.
-        <div>
-          <br />
-          {/* 30일의 반품 가능 기간, 반품 수수료 및 미수취시 발생하는 추가 배송 요금
-          읽어보기 반품 및 환불 */}
-          30 days for exchange and returns. Our delivery partner is working hard
-          to ensure you receive your items as quickly as possible, but due to
-          the recent lockdowns please be advised that delays may occur.
-        </div>
+        <p>Pricing and shipping costs are finalized during checkout.</p>
+
+        <p>
+          Our 30-day return policy applies. Return shipping fees and unclaimed
+          package charges may apply.
+        </p>
       </div>
     </div>
   );
