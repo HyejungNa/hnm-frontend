@@ -3,6 +3,7 @@ import { useLocation } from "react-router";
 import { Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Sidebar from "../common/component/Sidebar";
+import Logo from "../common/component/Logo";
 import Navbar from "../common/component/Navbar";
 import ToastMessage from "../common/component/ToastMessage";
 import { loginWithToken } from "../features/user/userSlice";
