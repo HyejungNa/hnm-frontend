@@ -1,5 +1,4 @@
 import axios from "axios";
-// 상황따라 주소 다름
 
 // 로컬에서 테스트할때 주석해제하기
 // const LOCAL_BACKEND = process.env.REACT_APP_LOCAL_BACKEND;
@@ -16,9 +15,7 @@ const api = axios.create({
     authorization: `Bearer ${sessionStorage.getItem("token")}`,
   },
 });
-/**
- * console.log all requests and responses
- */
+
 api.interceptors.request.use(
   (request) => {
     // console.log("Starting Request", request);
