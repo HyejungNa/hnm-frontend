@@ -12,8 +12,7 @@
   font-weight: 300;
 }
 
-@media screen and (max-width: 765px) {
-  .description {
-    font-size: 1.2em;
-  }
+.description {
+  font-size: 1.2em;
+  padding-top: 5px;
 }
