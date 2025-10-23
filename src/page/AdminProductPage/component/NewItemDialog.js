@@ -173,22 +173,28 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
   };
 
   const onHandleCategory = (event) => {
-    // 카테고리가 이미 추가되어 있으면 제거
-    if (formData.category.includes(event.target.value)) {
-      const newCategory = formData.category.filter(
-        (item) => item !== event.target.value
-      );
-      setFormData({
-        ...formData,
-        category: [...newCategory],
-      });
-    } else {
-      // 아니면 새로 추가
-      setFormData({
-        ...formData,
-        category: [...formData.category, event.target.value],
-      });
-    }
+    // 카테고리가 이미 추가되어 있으면 제거 (카테고리 중복선택시)
+    // if (formData.category.includes(event.target.value)) {
+    //   const newCategory = formData.category.filter(
+    //     (item) => item !== event.target.value
+    //   );
+    //   setFormData({
+    //     ...formData,
+    //     category: [...newCategory],
+    //   });
+    // } else {
+    //   // 아니면 새로 추가
+    //   setFormData({
+    //     ...formData,
+    //     category: [...formData.category, event.target.value],
+    //   });
+    // }
+
+    // 카테고리 단일선택시
+    setFormData({
+      ...formData,
+      category: [event.target.value], // 배열 형태 유지 (백엔드 호환성 유지)
+    });
   };
 
   const uploadImage = (url) => {
@@ -343,7 +349,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
             <Form.Label>Category</Form.Label>
             <Form.Control
               as="select"
-              multiple
+              // multiple (카테고리 중복선택 기능시 주석해지)
               onChange={onHandleCategory}
               value={formData.category}
               required
