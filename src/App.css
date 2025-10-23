@@ -34,7 +34,7 @@ body {
 }
 
 .card-name {
-  font-size: 16px;
+  font-size: 15px;
 }
 
 .card:hover {
@@ -88,4 +88,10 @@ body {
   justify-content: flex-end;
   margin-top: 20px;
   margin-right: 20px;
+}
+
+@media screen and (max-width: 765px) {
+  .card-name {
+    font-size: 1em;
+  }
 }

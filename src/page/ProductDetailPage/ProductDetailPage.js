@@ -75,7 +75,9 @@ const ProductDetail = () => {
           <div className="product-info">
             ${currencyFormat(selectedProduct.price)}
           </div>
-          <div className="product-info">{selectedProduct.description}</div>
+          <div className="product-info description">
+            {selectedProduct.description}
+          </div>
 
           <Dropdown
             className="drop-down size-drop-down"

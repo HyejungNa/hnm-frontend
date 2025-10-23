@@ -11,3 +11,9 @@
   margin-bottom: 10px;
   font-weight: 300;
 }
+
+@media screen and (max-width: 765px) {
+  .description {
+    font-size: 1.2em;
+  }
+}
