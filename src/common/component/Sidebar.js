@@ -23,13 +23,13 @@ const Sidebar = () => {
             className="sidebar-item"
             onClick={() => handleSelectMenu("/admin/product?page=1")}
           >
-            product
+            Product
           </li>
           <li
             className="sidebar-item"
             onClick={() => handleSelectMenu("/admin/order?page=1")}
           >
-            order
+            Order
           </li>
         </ul>
       </div>
@@ -55,7 +55,10 @@ const Sidebar = () => {
             onHide={() => setShow(false)}
             show={show}
           >
-            <Offcanvas.Header closeButton></Offcanvas.Header>
+            <Offcanvas.Header
+              closeButton
+              className="offcanvas-header"
+            ></Offcanvas.Header>
             <Offcanvas.Body>{NavbarContent()}</Offcanvas.Body>
           </Navbar.Offcanvas>
         </Container>

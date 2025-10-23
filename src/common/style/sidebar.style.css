@@ -1,5 +1,5 @@
 .sidebar {
-  /* max-width: 300px; */
+  /* width: auto; */
   padding: 20px;
   background-color: rgb(248, 249, 250);
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
@@ -25,6 +25,18 @@
   display: none;
 }
 
+.close {
+  text-align: right;
+}
+
+.offcanvas-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-bottom: 0;
+  padding-right: 1.5em;
+}
+
 #sidebar-wrapper {
   min-height: 100vh !important;
   background-color: red;
@@ -40,6 +52,9 @@
 }
 
 @media screen and (max-width: 765px) {
+  .sidebar {
+    padding: 0;
+  }
   .sidebar-toggle {
     display: none;
   }
@@ -48,5 +63,8 @@
   }
   .mobile-sidebar {
     max-height: 104px;
+  }
+  .navbar-toggler {
+    font-size: 1rem;
   }
 }
