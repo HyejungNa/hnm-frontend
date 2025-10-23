@@ -25,14 +25,14 @@ const LandingPage = () => {
       <Row>
         {/* 로딩스피너 추가 */}
         {loading ? (
-          <div className="text-align-center">
+          <div className="centered-spinner">
             <Spinner animation="border" role="status">
               <span className="visually-hidden">Loading...</span>
             </Spinner>
           </div>
         ) : productList.length > 0 ? (
           productList.map((item) => (
-            <Col md={3} sm={12} key={item._id}>
+            <Col md={3} sm={6} xs={6} key={item._id}>
               <ProductCard item={item} />
             </Col>
           ))
@@ -41,7 +41,7 @@ const LandingPage = () => {
             {name === "" ? (
               <h2>No registered products available!</h2>
             ) : (
-              <h2>No products found matching ' {name} '.</h2>
+              <h2>No products found matching '{name}'.</h2>
             )}
           </div>
         )}

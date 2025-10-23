@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Container, Row, Col, Button, Dropdown } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Button,
+  Dropdown,
+  Spinner,
+} from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { ColorRing } from "react-loader-spinner";
 import { currencyFormat } from "../../utils/number";
@@ -51,15 +58,11 @@ const ProductDetail = () => {
 
   if (loading || !selectedProduct)
     return (
-      <ColorRing
-        visible={true}
-        height="80"
-        width="80"
-        ariaLabel="blocks-loading"
-        wrapperStyle={{}}
-        wrapperClass="blocks-wrapper"
-        colors={["#e15b64", "#f47e60", "#f8b26a", "#abbd81", "#849b87"]}
-      />
+      <div className="centered-spinner">
+        <Spinner animation="border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      </div>
     );
   return (
     <Container className="product-detail-card">
