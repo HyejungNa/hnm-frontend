@@ -1,11 +1,11 @@
 .side-menu {
   height: 100%;
-  width: 150px;
+  width: 0;
   position: fixed;
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: burlywood;
+  background-color: #faf9f8;
   overflow-x: hidden;
   transition: 0.5s;
   padding-top: 60px;
@@ -13,18 +13,23 @@
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 
+.side-menu.open {
+  width: 150px;
+}
+
 .side-menu-list button {
   margin: 5px;
   border: none;
   background: none;
   width: 120px;
+  text-align: left;
 }
 
 .side-menu .closebtn {
   position: absolute;
-  top: 0;
+  top: 15px;
   right: 25px;
-  font-size: 36px;
+  font-size: 23px;
   margin-left: 50px;
   border: none;
   background: none;
@@ -46,7 +51,7 @@
   justify-content: space-between;
   align-items: center;
   margin: 1em 1em 1em 0;
-  font-size: 14px;
+  font-size: 15px;
 }
 
 .nav-icon {
@@ -78,6 +83,7 @@
   list-style-type: none;
   padding: 10px 5px 0px 5px;
   font-weight: lighter;
+  font-size: 15px;
 }
 
 .menu li a {
@@ -99,9 +105,9 @@
   .hide {
     visibility: visible;
   }
-  .menu {
+  /* .menu {
     display: none;
-  }
+  } */
 
   .nav-icon:last-child {
     margin-right: 0px;

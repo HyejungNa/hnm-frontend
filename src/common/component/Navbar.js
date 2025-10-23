@@ -19,7 +19,7 @@ const Navbar = ({ user }) => {
   const { cartItemCount } = useSelector((state) => state.cart); // 현재 카트에 있는 숫자들고오기
   const isMobile = window.navigator.userAgent.indexOf("Mobile") !== -1;
   const menuList = ["All", "Women", "Men", "Kids"];
-  let [width, setWidth] = useState(0);
+  const [isOpen, setIsOpen] = useState(false); // side-menu toggle
   let navigate = useNavigate();
 
   const onCheckEnter = (event) => {
@@ -30,14 +30,15 @@ const Navbar = ({ user }) => {
       navigate(`?name=${event.target.value}`);
     }
   };
+
   const handleLogout = () => {
     dispatch(logout());
   };
 
   return (
     <div className="nav-bar">
-      <div className="side-menu" style={{ width: width }}>
-        <button className="closebtn" onClick={() => setWidth(0)}>
+      <div className={`side-menu ${isOpen ? "open" : ""}`}>
+        <button className="closebtn" onClick={() => setIsOpen(false)}>
           &times;
         </button>
 
@@ -55,7 +56,7 @@ const Navbar = ({ user }) => {
 
       <div className="nav-header">
         <div className="burger-menu hide">
-          <FontAwesomeIcon icon={faBars} onClick={() => setWidth(250)} />
+          <FontAwesomeIcon icon={faBars} onClick={() => setIsOpen(true)} />
         </div>
 
         <div className="search-box">
