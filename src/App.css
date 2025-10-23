@@ -33,6 +33,13 @@ a {
   text-decoration: none;
 }
 
+button {
+  background: none;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+}
+
 .centered-spinner {
   display: flex;
   justify-content: center; /* 가로 중앙 */
