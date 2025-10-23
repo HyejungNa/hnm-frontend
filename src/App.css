@@ -6,18 +6,31 @@
   box-sizing: border-box;
 }
 
-#container {
-  width: 97vw;
-  /* max-width: 1200px; */
-  margin: 0 auto;
-}
-
-body {
+html {
   font-family: "Helvetica Neue", -apple-system, BlinkMacSystemFont, Arial,
     sans-serif;
   font-size: 14px;
   letter-spacing: 0.02em;
+}
+
+body {
   background-color: #faf9f8;
+}
+
+#container {
+  width: 97vw;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
 .centered-spinner {
