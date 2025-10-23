@@ -46,6 +46,11 @@
   border-radius: 3px;
 }
 
+.link-area,
+.setting-icon {
+  vertical-align: middle;
+}
+
 .nav-header {
   display: flex;
   justify-content: space-between;
@@ -87,13 +92,13 @@
   letter-spacing: 1px;
 }
 
-.menu li a {
+.menu li button {
   text-decoration: none;
   color: black;
   margin-left: 30px;
 }
 
-.menu li:first-child a {
+.menu li:first-child button {
   margin-left: 0;
 }
 
@@ -104,6 +109,15 @@
 .burger-menu {
   margin-left: 20px;
   cursor: pointer;
+}
+
+.link-area {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 20px;
+  margin-right: 20px;
+  gap: 6px;
 }
 
 @media screen and (max-width: 765px) {

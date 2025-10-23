@@ -81,15 +81,6 @@ button {
   background-color: white !important;
 }
 
-.drop-down {
-  margin-top: 20px;
-}
-
-.add-button {
-  margin-top: 20px;
-  width: 100%;
-}
-
 .hide {
   visibility: hidden;
 }
@@ -101,13 +92,6 @@ button {
 
 .admin-layout {
   display: flex;
-}
-
-.link-area {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 20px;
-  margin-right: 20px;
 }
 
 @media screen and (max-width: 765px) {
