@@ -9,7 +9,6 @@ The project consists of two repositories:
 This includes user and admin features, with JWT and Google OAuth authentication.
 It also utilizes Redux and supports automated deployment.
 <br>
-
 ## Features
 ### User Features
 - User Authentication: Email/password login and Google OAuth integration
@@ -24,7 +23,6 @@ It also utilizes Redux and supports automated deployment.
 - Product Management: Create, edit, delete products, manage stock levels
 - Order Management: Process orders and update order status
 <br>
-
 ## Tech Stack
 ### FE
 * React
