@@ -23,6 +23,7 @@ It also utilizes Redux and supports automated deployment.
 - Admin Dashboard: Overview of products and orders
 - Product Management: Create, edit, delete products, manage stock levels
 - Order Management: Process orders and update order status
+<br>
 
 ## Tech Stack
 ### FE
