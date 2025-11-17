@@ -19,7 +19,6 @@ import { CATEGORY } from "../../constants/product.constants";
 const Navbar = ({ user }) => {
   const dispatch = useDispatch();
   const { cartItemCount } = useSelector((state) => state.cart); // 현재 카트에 있는 숫자들고오기
-  const isMobile = window.navigator.userAgent.indexOf("Mobile") !== -1;
   const menuList = ["All", ...CATEGORY];
   const [isOpen, setIsOpen] = useState(false); // side-menu toggle
   let navigate = useNavigate();
@@ -82,17 +81,17 @@ const Navbar = ({ user }) => {
             {user ? (
               <div onClick={handleLogout} className="nav-icon">
                 <FontAwesomeIcon icon={faUser} />
-                {!isMobile && <span className="sign-in-text">SIGN OUT</span>}
+                <span className="sign-in-text">SIGN OUT</span>
               </div>
             ) : (
               <div onClick={() => navigate("/login")} className="nav-icon">
                 <FontAwesomeIcon icon={faUser} />
-                {!isMobile && <span className="sign-in-text">SIGN IN</span>}
+                <span className="sign-in-text">SIGN IN</span>
               </div>
             )}
             <div onClick={() => navigate("/cart")} className="nav-icon">
               <FontAwesomeIcon icon={faShoppingBag} />
-              {!isMobile && (
+              {cartItemCount > 0 && (
                 <span className="cart-item-text">{`${
                   cartItemCount || 0
                 }`}</span>
@@ -103,7 +102,7 @@ const Navbar = ({ user }) => {
               className="nav-icon"
             >
               <FontAwesomeIcon icon={faBox} />
-              {!isMobile && <span style={{ cursor: "pointer" }}></span>}
+              <span style={{ cursor: "pointer" }}></span>
             </div>
           </div>
         </div>
