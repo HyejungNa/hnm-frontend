@@ -4,11 +4,12 @@ The project consists of two repositories:
 
 - Frontend – This repository
 - Backend –[ View Backend Repository](https://github.com/HyejungNa/hnm-backend)
+<br>
 
 ## Frontend Overview
 This includes user and admin features, with JWT and Google OAuth authentication.
 It also utilizes Redux and supports automated deployment.
-
+<br>
 
 ## Features
 ### User Features
@@ -23,7 +24,7 @@ It also utilizes Redux and supports automated deployment.
 - Admin Dashboard: Overview of products and orders
 - Product Management: Create, edit, delete products, manage stock levels
 - Order Management: Process orders and update order status
-
+<br>
 
 ## Tech Stack
 ### FE
