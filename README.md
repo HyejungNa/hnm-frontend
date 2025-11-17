@@ -1,5 +1,4 @@
 # HAME E-commerce Platform
-***
 This is a full-stack e-commerce web application built with the MERN stack as a practice project.
 The project consists of two repositories:
 
@@ -7,12 +6,10 @@ The project consists of two repositories:
 - Backend – View Backend Repository
 
 # Frontend Overview
-***
 This includes user and admin features, with JWT and Google OAuth authentication.
 It also utilizes Redux and supports automated deployment.
 
 # Features
-***
 # User Features
 - User Authentication: Email/password login and Google OAuth integration
 - Product Browsing: View products with details, filtering by category
@@ -27,7 +24,6 @@ It also utilizes Redux and supports automated deployment.
 - Order Management: Process orders and update order status
 
 ## Tech Stack
-***
 ### FE
 * React
 * Redux-thunk
