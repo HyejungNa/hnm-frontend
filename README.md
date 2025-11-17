@@ -1,51 +1,46 @@
-# 쇼핑몰 프로젝트 
+# HAME E-commerce Platform
+***
+This is a full-stack e-commerce web application built with the MERN stack as a practice project.
+The project consists of two repositories:
 
-<img width="1502" alt="KakaoTalk_Photo_2023-08-09-10-42-10" src="https://github.com/legobitna/noona-shoppingmall-fe/assets/21190318/a2091646-7aee-46a4-9ebb-10d413c7da03">
+- Frontend – This repository
+- Backend – View Backend Repository
 
-<img width="1498" alt="Screenshot 2023-08-09 at 10 59 52" src="https://github.com/legobitna/noona-shoppingmall-fe/assets/21190318/534ec667-da75-4939-a124-49c9315ef13d">
+# Frontend Overview
+***
+This includes user and admin features, with JWT and Google OAuth authentication.
+It also utilizes Redux and supports automated deployment.
 
-* 데모🖥:https://noona-shoppingmall.netlify.app/
-## 프로젝트의 목표
-한 달🗓 이라는 기간 안에 프론트엔드에서 백엔드까지 풀스택으로 개발할 수 있는 쇼핑몰 웹사이트! 
-## User Story 📖
-### 유저
-* 유저는 회원가입을 할 수 있다.
-* 유저는 이메일과 비밀번호로 로그인을 할 수 있다.
-* 유저는 구글로 로그인을 할 수 있다.
+# Features
+***
+# User Features
+- User Authentication: Email/password login and Google OAuth integration
+- Product Browsing: View products with details, filtering by category
+- Search products: Search products by name
+- Shopping Cart: Add, remove products and update quantity
+- Checkout & Payment: Order creation with shipping details
+- Order History: Track order status and view past orders
+- Reviews: Leave reviews on their purchases
+# Admin Features
+- Admin Dashboard: Overview of products and orders
+- Product Management: Create, edit, delete products, manage stock levels
+- Order Management: Process orders and update order status
 
-### 상품
-* 관리자는 상품을 등록할 수 있다.
-* 관리자는 상품을 수정, 삭제할 수 있다. 
-* 관리자는 관리자 페이지에서 상품리스트를 볼 수 있다.
-* 유저는 랜딩페이지에서 상품을 볼 수 있다.
-* 유저는 상품 디테일 페이지를 볼 수 있다.
-* 유저는 상품을 이름으로 검색할 수 있다.
-
-### 카트
-* 유저는 사이즈를 선택 후 카트에 아이템을 담을 수 있다.
-* 유저는 카트페이지에서 담은 아이템 리스트를 볼 수 있다.
-* 유저는 카트에 각 아이템의 구매 개수를 수정할 수 있다.
-* 유저는 카트 아이템을 삭제할 수 있다.
-* 유저는 카트에 담긴 상품들의 총 가격을 볼 수 있다.
-
-### 주문
-* 유저는 상품주문시 연락처, 주소, 카드정보를 입력한다.
-* 유저는 주문하려는 상품들의 총 가격을 볼 수 있다.
-* 유저는 주문 완료후 주문 완료 페이지를 볼 수 있다.
-* 유저는 주문페이지에서 주문 내역을 볼 수 있다.
-* 관리자는 관리자 페이지에서 모든 유저의 주문 내역을 볼 수 있다.
-* 관리자는 주문 디테일을 볼 수 있다.
-* 관리자는 주문의 상태를 (준비중, 배송중, 완료, 환불) 수정할 수 있다.
-* 관리자는 주문번호로 주문을 검색할 수 있다.
-
-## 사용된 기술🏛
+## Tech Stack
+***
 ### FE
 * React
 * Redux-thunk
+* React Router
+* Axios (Handle API requests)
+* Google OAuth (Social authentication)
+
 ### BE
 * Nodejs
 * Express
 * MongoDB
+* Cloudinary (Image hosting)
+  
 ### Devops
-* AWS beanstalk 
-* Netlify 
+* Netlify
+* Heroku
