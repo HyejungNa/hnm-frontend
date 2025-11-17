@@ -1,9 +1,10 @@
 # HAME E-commerce Platform
+[Visit HAME E-commerce website](https://hnm-shopping-fe.netlify.app/)
 This is a full-stack e-commerce web application built with the MERN stack as a practice project.
 The project consists of two repositories:
 
 - Frontend – This repository
-- Backend –[ View Backend Repository](https://github.com/HyejungNa/hnm-backend)
+- Backend –[View Backend Repository](https://github.com/HyejungNa/hnm-backend)
 <br>
   
 ## Frontend Overview
@@ -18,7 +19,7 @@ It also utilizes Redux and supports automated deployment.
 - Shopping Cart: Add, remove products and update quantity
 - Checkout & Payment: Order creation with shipping details
 - Order History: Track order status and view past orders
-- Reviews: Leave reviews on their purchases
+
 ### Admin Features
 - Admin Dashboard: Overview of products and orders
 - Product Management: Create, edit, delete products, manage stock levels
