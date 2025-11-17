@@ -8,17 +8,19 @@ import { getProductList } from "../../features/product/productSlice";
 const LandingPage = () => {
   const dispatch = useDispatch();
 
-  const productList = useSelector((state) => state.product.productList);
+  const { productList } = useSelector((state) => state.product);
   const [query] = useSearchParams();
   const name = query.get("name");
+  const category = query.get("category");
+
   // 로딩스피너 state
   const [loading, setLoading] = useState(true);
 
-  // 로딩스피너 추가
+  // 상품리스트 가져오기(들어오자마자 보여주기 - useEffect사용) + 로딩스피너 추가
   useEffect(() => {
     setLoading(true); // fetching전에 true로 set
-    dispatch(getProductList({ name })).then(() => setLoading(false)); // fetching후 false로 변경
-  }, [dispatch, name]);
+    dispatch(getProductList({ name, category })).then(() => setLoading(false)); // fetching후 false로 변경
+  }, [dispatch, name, category]);
 
   return (
     <Container>

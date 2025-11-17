@@ -7,18 +7,20 @@ import {
   faBox,
   faSearch,
   faShoppingBag,
+  faCog,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../features/user/userSlice";
 import Logo from "../component/Logo";
+import { CATEGORY } from "../../constants/product.constants";
 
 const Navbar = ({ user }) => {
   const dispatch = useDispatch();
   const { cartItemCount } = useSelector((state) => state.cart); // 현재 카트에 있는 숫자들고오기
   const isMobile = window.navigator.userAgent.indexOf("Mobile") !== -1;
-  const menuList = ["All", "Women", "Men", "Kids"];
+  const menuList = ["All", ...CATEGORY];
   const [isOpen, setIsOpen] = useState(false); // side-menu toggle
   let navigate = useNavigate();
 
@@ -35,6 +37,14 @@ const Navbar = ({ user }) => {
     dispatch(logout());
   };
 
+  const handleCategoryClick = (menu) => {
+    if (menu === "All") {
+      navigate("/");
+    } else {
+      navigate(`/?category=${menu}`);
+    }
+  };
+
   return (
     <div className="nav-bar">
       <div className={`side-menu ${isOpen ? "open" : ""}`}>
@@ -44,13 +54,16 @@ const Navbar = ({ user }) => {
 
         <div className="side-menu-list" id="menu-list">
           {menuList.map((menu, index) => (
-            <button key={index}>{menu}</button>
+            <button key={index} onClick={() => handleCategoryClick(menu)}>
+              {menu}
+            </button>
           ))}
         </div>
       </div>
       {user && user.level === "admin" && (
         <Link to="/admin/product?page=1" className="link-area">
-          Admin page
+          <FontAwesomeIcon icon={faCog} />
+          <span>Admin page</span>
         </Link>
       )}
 
@@ -61,11 +74,7 @@ const Navbar = ({ user }) => {
 
         <div className="search-box">
           <FontAwesomeIcon icon={faSearch} />
-          <input
-            type="text"
-            placeholder="Search..."
-            onKeyPress={onCheckEnter}
-          />
+          <input type="text" placeholder="Search..." onKeyDown={onCheckEnter} />
         </div>
 
         <div>
@@ -107,7 +116,7 @@ const Navbar = ({ user }) => {
         <ul className="menu">
           {menuList.map((menu, index) => (
             <li key={index}>
-              <a href="#">{menu}</a>
+              <button onClick={() => handleCategoryClick(menu)}>{menu}</button>
             </li>
           ))}
         </ul>
