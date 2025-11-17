@@ -4,7 +4,6 @@ The project consists of two repositories:
 
 - Frontend – This repository
 - Backend –[ View Backend Repository](https://github.com/HyejungNa/hnm-backend)
-<br>
 
 ## Frontend Overview
 This includes user and admin features, with JWT and Google OAuth authentication.
